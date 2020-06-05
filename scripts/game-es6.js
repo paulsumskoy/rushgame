@@ -1,3 +1,5 @@
+'use strict';
+
 class SceneManager {
   constructor() {
     this.menuScene = document.getElementById('menu');
@@ -43,14 +45,14 @@ class SceneManager {
 
       e.preventDefault();
       return false;
-    }
+    };
 
     this.exitButton.onclick = function(e) {
       manager.showMenu();
 
       e.preventDefault();
       return false;
-    }
+    };
 
     this.restartButton.onclick = function(e) {
       manager.startGame();
@@ -58,18 +60,18 @@ class SceneManager {
 
       e.preventDefault();
       return false;
-    }
+    };
   }
 }
 
 class LevelData {
   constructor() {
     this.levels = [
-      {gapX:0, gapY:30, widthDiff: 0, total: 5, coinChance: 0.4, enemyChance: 0.2},
-      {gapX:10, gapY:30, widthDiff: 30, total: 10, coinChance: 0.6, enemyChance: 0.3},
-      {gapX:20, gapY:30, widthDiff: 30, total: 10, coinChance: 0.6, enemyChance: 0.2},
-      {gapX:40, gapY:40, widthDiff: 100, total: 50, coinChance: 0.8, enemyChance: 0},
-      {gapX:20, gapY:30, widthDiff: 30, total: 100, coinChance: 0.6, enemyChance: 0.4},
+      { gapX: 0, gapY: 30, widthDiff: 0, total: 5, coinChance: 0.4, enemyChance: 0.2 },
+      { gapX: 10, gapY: 30, widthDiff: 30, total: 10, coinChance: 0.6, enemyChance: 0.3 },
+      { gapX: 20, gapY: 30, widthDiff: 30, total: 10, coinChance: 0.6, enemyChance: 0.2 },
+      { gapX: 40, gapY: 40, widthDiff: 100, total: 50, coinChance: 0.8, enemyChance: 0 },
+      { gapX: 20, gapY: 30, widthDiff: 30, total: 100, coinChance: 0.6, enemyChance: 0.4 },
     ];
   }
 }
@@ -80,7 +82,7 @@ class ScoreCalculator {
   }
   increaseScore(level) {
     // Note: level starts at 0. Expotential incremental.
-    this.score += (level+1) * (level+1);
+    this.score += (level + 1) * (level + 1);
   }
 }
 
@@ -108,8 +110,8 @@ class MovableGameObject extends GameObject {
     this.velocity = {
       x: 0,
       y: 0
-    }
-    this.on("tick", this.tick);
+    };
+    this.on('tick', this.tick);
   }
   tick() {
     this.y += this.velocity.y;
@@ -145,7 +147,7 @@ class Enemy extends MovableGameObject {
 
 class Hero extends MovableGameObject {
   constructor() {
-    super( new lib.HeroGraphic() );
+    super(new lib.HeroGraphic());
   }
   run() {
     if (!this.isOnGround) {
@@ -165,10 +167,10 @@ class Hero extends MovableGameObject {
 
 class Platform extends GameObject {
   constructor() {
-    super( new lib.PlatformGraphic() );
+    super(new lib.PlatformGraphic());
   }
   setClippingWidth(width) {
-    this.graphic.instance.mask = new createjs.Shape(new createjs.Graphics().beginFill("#000").drawRect(0,0,width,this.getBounds().height));
+    this.graphic.instance.mask = new createjs.Shape(new createjs.Graphics().beginFill('#000').drawRect(0, 0, width, this.getBounds().height));
     this.setBounds(this.x, this.y, width, this.getBounds().height);
   }
 }
@@ -181,7 +183,7 @@ class World extends createjs.Container {
     this.scoreCalculator = new ScoreCalculator();
     this.currentLevel = 0;
 
-    this.on("tick", this.tick);
+    this.on('tick', this.tick);
 
     // store all platforms
     this.platforms = [];
@@ -234,13 +236,13 @@ class World extends createjs.Container {
 
     var levelNumber = 0;
     for (var level of this.levelData.levels) {
-      for (var i=0; i<level.total; i++) {
+      for (var i = 0; i < level.total; i++) {
         var platform = new Platform();
         platform.x = nextX;
         platform.y = nextY;
 
         var width = platform.getBounds().width;
-        platform.setClippingWidth( width - Math.random() * level.widthDiff );
+        platform.setClippingWidth(width - Math.random() * level.widthDiff);
 
         platform.levelNumber = levelNumber;
 
@@ -257,14 +259,14 @@ class World extends createjs.Container {
   }
   generateEnemies() {
     // skip first 2 platforms.
-    for (var i=2; i<this.platforms.length; i++) {
+    for (var i = 2; i < this.platforms.length; i++) {
       var platform = this.platforms[i];
       var levelNumber = platform.levelNumber;
       var chance = this.levelData.levels[levelNumber].enemyChance;
       // net every platform needs enemy.
       if (Math.random() < chance) {
         var enemy = new Enemy();
-        enemy.x = platform.x + platform.getBounds().width/2;
+        enemy.x = platform.x + platform.getBounds().width / 2;
         enemy.y = platform.y - enemy.getBounds().height;
 
         this.addChild(enemy);
@@ -287,7 +289,7 @@ class World extends createjs.Container {
     }
   }
   eatCoin(coin) {
-    for (var i=0; i<this.coins.length; i++) {
+    for (var i = 0; i < this.coins.length; i++) {
       if (coin === this.coins[i]) {
         this.coins.splice(i, 1);
       }
@@ -375,13 +377,13 @@ class World extends createjs.Container {
   }
 }
 
-class Game{
+class Game {
   constructor() {
     console.log(`Welcome to the game. Version ${this.version()}`);
 
     this.loadSound();
 
-    this.canvas = document.getElementById("game-canvas");
+    this.canvas = document.getElementById('game-canvas');
     this.stage = new createjs.Stage(this.canvas);
 
     this.stage.width = this.canvas.width;
@@ -396,12 +398,12 @@ class Game{
     createjs.Ticker.setFPS(60);
 
     // keep re-drawing the stage.
-    createjs.Ticker.on("tick", this.stage);
+    createjs.Ticker.on('tick', this.stage);
 
     this.gameLoaded = false;
     this.loadGraphics();
   }
-  version(){
+  version() {
     return '1.0.0';
   }
   loadSound() {
@@ -409,18 +411,18 @@ class Game{
   }
   loadGraphics() {
     var loader = new createjs.LoadQueue(false);
-  	loader.addEventListener("fileload", handleFileLoad);
-  	loader.addEventListener("complete", handleComplete.bind(this));
-  	loader.loadFile({src:"images/rush_game_graphics_atlas_.json", type:"spritesheet", id:"rush_game_graphics_atlas_"}, true);
+  	loader.addEventListener('fileload', handleFileLoad);
+  	loader.addEventListener('complete', handleComplete.bind(this));
+  	loader.loadFile({ src: 'images/rush_game_graphics_atlas_.json', type: 'spritesheet', id: 'rush_game_graphics_atlas_' }, true);
   	loader.loadManifest(lib.properties.manifest);
 
     function handleFileLoad(evt) {
-    	if (evt.item.type == "image") { images[evt.item.id] = evt.result; }
+    	if (evt.item.type == 'image') { images[evt.item.id] = evt.result; }
     }
 
     function handleComplete(evt) {
     	var queue = evt.target;
-    	ss["rush_game_graphics_atlas_"] = queue.getResult("rush_game_graphics_atlas_");
+    	ss['rush_game_graphics_atlas_'] = queue.getResult('rush_game_graphics_atlas_');
 
       this.gameLoaded = true;
     }
@@ -435,7 +437,7 @@ class Game{
     this.stage.addChild(this.world);
 
     var hero = this.world.hero;
-    this.stage.on('stagemousedown', function(){
+    this.stage.on('stagemousedown', () => {
       hero.jump();
     });
   }
@@ -447,19 +449,19 @@ class Game{
     this.stage.width = this.canvas.width;
     this.stage.height = this.canvas.height;
 
-    let ratio = window.devicePixelRatio;
+    const ratio = window.devicePixelRatio;
     if (ratio === undefined) {
       return;
     }
 
-    this.canvas.setAttribute('width', Math.round( this.stage.width * ratio ));
-    this.canvas.setAttribute('height', Math.round( this.stage.height * ratio ));
+    this.canvas.setAttribute('width', Math.round(this.stage.width * ratio));
+    this.canvas.setAttribute('height', Math.round(this.stage.height * ratio));
 
     this.stage.scaleX = this.stage.scaleY = ratio;
 
     // Set CSS style
-    this.canvas.style.width = this.stage.width + "px";
-    this.canvas.style.height = this.stage.height + "px";
+    this.canvas.style.width = this.stage.width + 'px';
+    this.canvas.style.height = this.stage.height + 'px';
   }
 }
 

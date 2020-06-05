@@ -1,14 +1,14 @@
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function() { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function(Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError('this hasn\'t been initialised - super() hasn\'t been called'); } return call && (typeof call === 'object' || typeof call === 'function') ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var SceneManager = function () {
+var SceneManager = function() {
   function SceneManager() {
     _classCallCheck(this, SceneManager);
 
@@ -64,7 +64,7 @@ var SceneManager = function () {
     key: 'handlePlayerClick',
     value: function handlePlayerClick() {
       var manager = this;
-      this.startButton.onclick = function (e) {
+      this.startButton.onclick = function(e) {
         manager.startGame();
         game.restartGame();
 
@@ -72,14 +72,14 @@ var SceneManager = function () {
         return false;
       };
 
-      this.exitButton.onclick = function (e) {
+      this.exitButton.onclick = function(e) {
         manager.showMenu();
 
         e.preventDefault();
         return false;
       };
 
-      this.restartButton.onclick = function (e) {
+      this.restartButton.onclick = function(e) {
         manager.startGame();
         game.restartGame();
 
@@ -98,7 +98,7 @@ var LevelData = function LevelData() {
   this.levels = [{ gapX: 0, gapY: 30, widthDiff: 0, total: 5, coinChance: 0.4, enemyChance: 0.2 }, { gapX: 10, gapY: 30, widthDiff: 30, total: 10, coinChance: 0.6, enemyChance: 0.3 }, { gapX: 20, gapY: 30, widthDiff: 30, total: 10, coinChance: 0.6, enemyChance: 0.2 }, { gapX: 40, gapY: 40, widthDiff: 100, total: 50, coinChance: 0.8, enemyChance: 0 }, { gapX: 20, gapY: 30, widthDiff: 30, total: 100, coinChance: 0.6, enemyChance: 0.4 }];
 };
 
-var ScoreCalculator = function () {
+var ScoreCalculator = function() {
   function ScoreCalculator() {
     _classCallCheck(this, ScoreCalculator);
 
@@ -116,7 +116,7 @@ var ScoreCalculator = function () {
   return ScoreCalculator;
 }();
 
-var GameObject = function (_createjs$Container) {
+var GameObject = function(_createjs$Container) {
   _inherits(GameObject, _createjs$Container);
 
   function GameObject(graphic) {
@@ -137,7 +137,7 @@ var GameObject = function (_createjs$Container) {
   return GameObject;
 }(createjs.Container);
 
-var MovableGameObject = function (_GameObject) {
+var MovableGameObject = function(_GameObject) {
   _inherits(MovableGameObject, _GameObject);
 
   function MovableGameObject(graphic) {
@@ -151,7 +151,7 @@ var MovableGameObject = function (_GameObject) {
       x: 0,
       y: 0
     };
-    _this2.on("tick", _this2.tick);
+    _this2.on('tick', _this2.tick);
     return _this2;
   }
 
@@ -166,7 +166,7 @@ var MovableGameObject = function (_GameObject) {
   return MovableGameObject;
 }(GameObject);
 
-var Coin = function (_GameObject2) {
+var Coin = function(_GameObject2) {
   _inherits(Coin, _GameObject2);
 
   function Coin() {
@@ -178,7 +178,7 @@ var Coin = function (_GameObject2) {
   return Coin;
 }(GameObject);
 
-var Enemy = function (_MovableGameObject) {
+var Enemy = function(_MovableGameObject) {
   _inherits(Enemy, _MovableGameObject);
 
   function Enemy() {
@@ -209,7 +209,7 @@ var Enemy = function (_MovableGameObject) {
   return Enemy;
 }(MovableGameObject);
 
-var Hero = function (_MovableGameObject2) {
+var Hero = function(_MovableGameObject2) {
   _inherits(Hero, _MovableGameObject2);
 
   function Hero() {
@@ -241,7 +241,7 @@ var Hero = function (_MovableGameObject2) {
   return Hero;
 }(MovableGameObject);
 
-var Platform = function (_GameObject3) {
+var Platform = function(_GameObject3) {
   _inherits(Platform, _GameObject3);
 
   function Platform() {
@@ -253,7 +253,7 @@ var Platform = function (_GameObject3) {
   _createClass(Platform, [{
     key: 'setClippingWidth',
     value: function setClippingWidth(width) {
-      this.graphic.instance.mask = new createjs.Shape(new createjs.Graphics().beginFill("#000").drawRect(0, 0, width, this.getBounds().height));
+      this.graphic.instance.mask = new createjs.Shape(new createjs.Graphics().beginFill('#000').drawRect(0, 0, width, this.getBounds().height));
       this.setBounds(this.x, this.y, width, this.getBounds().height);
     }
   }]);
@@ -261,7 +261,7 @@ var Platform = function (_GameObject3) {
   return Platform;
 }(GameObject);
 
-var World = function (_createjs$Container2) {
+var World = function(_createjs$Container2) {
   _inherits(World, _createjs$Container2);
 
   function World() {
@@ -273,7 +273,7 @@ var World = function (_createjs$Container2) {
     _this7.scoreCalculator = new ScoreCalculator();
     _this7.currentLevel = 0;
 
-    _this7.on("tick", _this7.tick);
+    _this7.on('tick', _this7.tick);
 
     // store all platforms
     _this7.platforms = [];
@@ -590,7 +590,7 @@ var World = function (_createjs$Container2) {
   return World;
 }(createjs.Container);
 
-var Game = function () {
+var Game = function() {
   function Game() {
     _classCallCheck(this, Game);
 
@@ -598,7 +598,7 @@ var Game = function () {
 
     this.loadSound();
 
-    this.canvas = document.getElementById("game-canvas");
+    this.canvas = document.getElementById('game-canvas');
     this.stage = new createjs.Stage(this.canvas);
 
     this.stage.width = this.canvas.width;
@@ -613,7 +613,7 @@ var Game = function () {
     createjs.Ticker.setFPS(60);
 
     // keep re-drawing the stage.
-    createjs.Ticker.on("tick", this.stage);
+    createjs.Ticker.on('tick', this.stage);
 
     this.gameLoaded = false;
     this.loadGraphics();
@@ -631,20 +631,20 @@ var Game = function () {
     key: 'loadGraphics',
     value: function loadGraphics() {
       var loader = new createjs.LoadQueue(false);
-      loader.addEventListener("fileload", handleFileLoad);
-      loader.addEventListener("complete", handleComplete.bind(this));
-      loader.loadFile({ src: "images/rush_game_graphics_atlas_.json", type: "spritesheet", id: "rush_game_graphics_atlas_" }, true);
+      loader.addEventListener('fileload', handleFileLoad);
+      loader.addEventListener('complete', handleComplete.bind(this));
+      loader.loadFile({ src: 'images/rush_game_graphics_atlas_.json', type: 'spritesheet', id: 'rush_game_graphics_atlas_' }, true);
       loader.loadManifest(lib.properties.manifest);
 
       function handleFileLoad(evt) {
-        if (evt.item.type == "image") {
+        if (evt.item.type == 'image') {
           images[evt.item.id] = evt.result;
         }
       }
 
       function handleComplete(evt) {
         var queue = evt.target;
-        ss["rush_game_graphics_atlas_"] = queue.getResult("rush_game_graphics_atlas_");
+        ss['rush_game_graphics_atlas_'] = queue.getResult('rush_game_graphics_atlas_');
 
         this.gameLoaded = true;
       }
@@ -661,7 +661,7 @@ var Game = function () {
       this.stage.addChild(this.world);
 
       var hero = this.world.hero;
-      this.stage.on('stagemousedown', function () {
+      this.stage.on('stagemousedown', () => {
         hero.jump();
       });
     }
@@ -687,8 +687,8 @@ var Game = function () {
       this.stage.scaleX = this.stage.scaleY = ratio;
 
       // Set CSS style
-      this.canvas.style.width = this.stage.width + "px";
-      this.canvas.style.height = this.stage.height + "px";
+      this.canvas.style.width = this.stage.width + 'px';
+      this.canvas.style.height = this.stage.height + 'px';
     }
   }]);
 
